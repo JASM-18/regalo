@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Para Leslie 💖</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap" rel="stylesheet">
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(to bottom, #fdfbfb, #ebedee);
+}
+
+/* INTRO */
+.intro {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, #ffdde1, #ee9ca7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.carta {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    text-align: center;
+}
+
+/* BOTÓN MÚSICA */
+.music-btn {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    border-radius: 50%;
+    width: 55px;
+    height: 55px;
+    border: none;
+    background: white;
+    cursor: pointer;
+}
+
+/* GALERÍA */
+.galeria {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    padding: 40px;
+}
+
+.card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.card img, .card video {
+    width: 100%;
+    height: 280px;
+    object-fit: cover;
+    cursor: pointer;
+}
+
+.mensaje {
+    padding: 15px;
+    text-align: center;
+}
+
+/* MODAL */
+.modal {
+    display: none;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.9);
+}
+
+.modal img, .modal video {
+    display: block;
+    margin: auto;
+    max-width: 80%;
+    margin-top: 5%;
+}
+
+.cerrar {
+    position: absolute;
+    top: 20px;
+    right: 40px;
+    color: white;
+    font-size: 40px;
+    cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<!-- CARTA -->
+<div id="intro" class="intro">
+    <div class="carta">
+        <h2>Para Leslie 💖</h2>
+        <p id="textoCarta"></p>
+        <button onclick="entrar()">Entrar</button>
+    </div>
+</div>
+
+<button class="music-btn" onclick="toggleMusica()" id="btnMusic">▶️</button>
+
+<header style="text-align:center;padding:50px;">
+    <h1>🎂 Feliz Cumpleaños 💖</h1>
+    <h2>JENYVA CHAMBERS "LESLIE"</h2>
+</header>
+
+<section class="galeria">
+
+    <!-- 7 IMÁGENES -->
+    <div class="card"><img src="foto1.jpg" onclick="abrirImg(this)"><div class="mensaje">Tu sonrisa ilumina todo 💖</div></div>
+    <div class="card"><img src="foto2.jpg" onclick="abrirImg(this)"><div class="mensaje">Momentos que valen oro ✨</div></div>
+    <div class="card"><img src="foto3.jpg" onclick="abrirImg(this)"><div class="mensaje">Eres increíble 🌸</div></div>
+    <div class="card"><img src="foto4.jpg" onclick="abrirImg(this)"><div class="mensaje">Nunca dejes de brillar 💫</div></div>
+    <div class="card"><img src="foto5.jpg" onclick="abrirImg(this)"><div class="mensaje">Tu esencia es única 🌹</div></div>
+    <div class="card"><img src="foto6.jpg" onclick="abrirImg(this)"><div class="mensaje">Siempre especial 💕</div></div>
+    <div class="card"><img src="foto7.jpg" onclick="abrirImg(this)"><div class="mensaje">Feliz cumpleaños 🎂</div></div>
+
+    <!-- VIDEO -->
+    <div class="card">
+        <video src="video.mp4" onclick="abrirVideo(this)"></video>
+        <div class="mensaje">Un recuerdo en movimiento 🎥</div>
+    </div>
+
+</section>
+
+<!-- MODAL -->
+<div id="modal" class="modal" onclick="cerrar()">
+    <span class="cerrar">&times;</span>
+    <div id="contenidoModal"></div>
+</div>
+
+<!-- AUDIO -->
+<audio id="musica" loop>
+    <source src="musica.mp3">
+</audio>
+
+<script>
+/* CARTA */
+let texto = "Hoy no es un día cualquiera… es el día en que nació alguien especial 💖";
+let i = 0;
+function escribir(){
+    if(i < texto.length){
+        document.getElementById("textoCarta").innerHTML += texto.charAt(i);
+        i++;
+        setTimeout(escribir,40);
+    }
+}
+escribir();
+
+/* ENTRAR */
+function entrar(){
+    document.getElementById("intro").style.display="none";
+    let audio = document.getElementById("musica");
+    audio.play();
+}
+
+/* MÚSICA */
+let play=false;
+function toggleMusica(){
+    let audio=document.getElementById("musica");
+    let btn=document.getElementById("btnMusic");
+    if(play){audio.pause();btn.innerHTML="▶️";}
+    else{audio.play();btn.innerHTML="⏸️";}
+    play=!play;
+}
+
+/* MODAL IMG */
+function abrirImg(img){
+    let modal=document.getElementById("modal");
+    let cont=document.getElementById("contenidoModal");
+    cont.innerHTML="<img src='"+img.src+"'>";
+    modal.style.display="block";
+}
+
+/* MODAL VIDEO */
+function abrirVideo(v){
+    let modal=document.getElementById("modal");
+    let cont=document.getElementById("contenidoModal");
+    cont.innerHTML="<video src='"+v.src+"' controls autoplay></video>";
+    modal.style.display="block";
+}
+
+function cerrar(){
+    document.getElementById("modal").style.display="none";
+    document.getElementById("contenidoModal").innerHTML="";
+}
+</script>
+
+</body>
+</html>
